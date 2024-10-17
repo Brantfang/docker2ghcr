@@ -35,7 +35,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ env.REPOSITORY_NAME }}  
-          password: ${{ secrets.GITHUB_TOKEN }} 
+          password: ${{ secrets.GHCR_PAT }} 
 
       - name: 从DockerHub拉取Docker镜像
         run: |
