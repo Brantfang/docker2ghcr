@@ -19,13 +19,17 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ inputs.ghcr_image }} 
-  REPOSITORY_NAME: ${{ github.actor.toLowerCase() }}
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 将 GitHub 用户名转换为小写并设为环境变量
+        run: |
+          REPOSITORY_NAME=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')
+          echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
+      
       - name: 登录到GitHub容器注册表
         uses: docker/login-action@v3
         with:
